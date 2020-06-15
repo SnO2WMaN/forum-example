@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "no-useless-constructor": 0,
+    // import
+    "import/prefer-default-export": 0
+  }
+}
