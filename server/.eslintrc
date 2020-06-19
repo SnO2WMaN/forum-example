@@ -2,6 +2,8 @@
   "rules": {
     "no-useless-constructor": 0,
     // import
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    //unicorn
+    "unicorn/no-fn-reference-in-iterator": 0
   }
 }
