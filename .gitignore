@@ -5,6 +5,9 @@ node_modules/
 .next/
 storybook-static/
 
+# DB
+db/
+
 # Logs
 logs/
 *.log
