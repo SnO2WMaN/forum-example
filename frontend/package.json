@@ -9,7 +9,8 @@
     "prebuild-storybook": "rimraf storybook-static",
     "build-storybook": "build-storybook",
     "clean": "run-s -cn clean:*",
-    "clean:storybook": "rimraf storybook-static"
+    "clean:storybook": "rimraf storybook-static",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
@@ -23,6 +24,7 @@
     "clsx": "^1.1.0",
     "graphql": "^15.1.0",
     "graphql-iso-date": "^3.6.1",
+    "graphql-tag": "^2.10.3",
     "isomorphic-fetch": "^2.2.1",
     "next": "^9.4.4",
     "postcss": "^7.0.31",
@@ -36,6 +38,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
+    "@graphql-codegen/cli": "1.15.4",
+    "@graphql-codegen/introspection": "1.15.4",
+    "@graphql-codegen/typescript": "1.15.4",
+    "@graphql-codegen/typescript-document-nodes": "1.15.4",
+    "@graphql-codegen/typescript-operations": "1.15.4",
+    "@graphql-codegen/typescript-react-apollo": "1.15.4",
     "@storybook/addon-a11y": "^5.3.19",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-backgrounds": "^5.3.19",
@@ -50,9 +58,9 @@
     "@storybook/react": "^5.3.19",
     "@types/node": "14.0.13",
     "@types/react": "16.9.36",
-    "ts-loader": "^7.0.5",
     "npm-run-all": "4.1.5",
     "rimraf": "^3.0.2",
-    "typescript": "^3.9.3"
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.5"
   }
 }

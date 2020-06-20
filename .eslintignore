@@ -4,6 +4,8 @@ node_modules/
 # Compiled outputs
 .next/
 storybook-static/
+dist/
+generated/
 
 # Database
 db/
