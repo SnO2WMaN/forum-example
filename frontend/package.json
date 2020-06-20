@@ -3,14 +3,16 @@
   "version": "0.0.1",
   "private": "true",
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "run-p -lns dev:*",
+    "dev:next": "next dev -p 3000",
+    "dev:codegen": "yarn codegen --watch",
     "build": "next build",
     "start-storybook": "start-storybook -p 6006 --ci",
     "prebuild-storybook": "rimraf storybook-static",
     "build-storybook": "build-storybook",
+    "codegen": "graphql-codegen --config codegen.yml",
     "clean": "run-s -cn clean:*",
-    "clean:storybook": "rimraf storybook-static",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "clean:storybook": "rimraf storybook-static"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
