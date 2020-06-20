@@ -3,13 +3,15 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
   PrimaryGeneratedColumn,
+  Tree,
+  TreeChildren,
+  TreeParent,
 } from "typeorm";
 
 @ObjectType()
 @Entity()
+@Tree("nested-set")
 export class Post {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -23,12 +25,10 @@ export class Post {
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 
-  @Field(() => [Post])
-  @ManyToMany(() => Post, (post) => post.children)
-  @JoinTable()
-  parents?: Post[];
+  @Field({ nullable: true })
+  @TreeParent()
+  parent: Post;
 
-  @Field(() => [Post])
-  @ManyToMany(() => Post, (post) => post.parents)
-  children?: Post[];
+  @TreeChildren()
+  children: Post[];
 }

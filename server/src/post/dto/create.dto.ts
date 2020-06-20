@@ -5,6 +5,6 @@ export class CreatePostArgs {
   @Field()
   content: string;
 
-  @Field(() => [ID], { nullable: true })
-  parents?: string[];
+  @Field(() => ID, { nullable: true })
+  parent?: string;
 }

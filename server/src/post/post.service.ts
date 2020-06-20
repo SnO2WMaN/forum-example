@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { FindManyOptions, Repository } from "typeorm";
+import { FindManyOptions, TreeRepository } from "typeorm";
 
 import { Post } from "./entity/post.entity";
 
@@ -8,12 +8,12 @@ import { Post } from "./entity/post.entity";
 export class PostService {
   constructor(
     @InjectRepository(Post)
-    private postRepository: Repository<Post>,
+    private postRepository: TreeRepository<Post>,
   ) {}
 
   async getById(id: string): Promise<Post> {
     return this.postRepository.findOneOrFail(id, {
-      relations: ["parents", "children"],
+      relations: ["parent", "children"],
     });
   }
 
@@ -22,7 +22,8 @@ export class PostService {
   ): Promise<Post[]> {
     return this.postRepository.find({
       ...option,
-      relations: ["parents", "children"],
+      relations: ["parent", "children"],
+      order: { createdAt: "DESC", id: "ASC" },
     });
   }
 
@@ -35,14 +36,17 @@ export class PostService {
 
   async hang(child: string | Post, parent: string | Post): Promise<void> {
     const childPost =
-      typeof child === "string" ? await this.getById(child) : child;
+      typeof child === "string"
+        ? await this.postRepository.findOneOrFail(child)
+        : child;
     const parentPost =
-      typeof parent === "string" ? await this.getById(parent) : parent;
+      typeof parent === "string"
+        ? await this.postRepository.findOneOrFail(parent, {
+            relations: ["children"],
+          })
+        : parent;
 
-    await this.postRepository
-      .createQueryBuilder()
-      .relation("parents")
-      .of(childPost)
-      .add(parentPost);
+    parentPost.children.push(childPost);
+    await this.postRepository.save(parentPost);
   }
 }
